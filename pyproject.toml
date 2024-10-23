@@ -3,7 +3,7 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "summary-service"
+name = "tiny-news"
 version = "0.1.0"
 description = "Summary service for news articles"
 authors = [{ name = "Henrik Aasen Kjeldsberg", email = "henrik.kjeldsberg@live.no" }]
