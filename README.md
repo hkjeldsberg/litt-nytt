@@ -12,7 +12,7 @@ The project relies on the following Python dependencies, also listed in `pyproje
 
 ## Running locally
 
-To run the energy prediction service locally, follow these steps:
+To run the service locally, follow these steps:
 
 ### Step 1: Install dependencies
 
