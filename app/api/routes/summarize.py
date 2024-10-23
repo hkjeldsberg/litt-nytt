@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 
 from app.extraction_service import ExtractionService
-from app.models.health import HealthResponse
 from app.summary_response import SummaryResponse
 from app.summary_service import SummaryService
 
@@ -11,11 +10,12 @@ extraction_service = ExtractionService()
 summary_service = SummaryService()
 
 
-@router.get("", response_model=HealthResponse, name="health")
+@router.get("", response_model=SummaryResponse, name="summarize")
 def summarize() -> SummaryResponse:
-    urls = extraction_service.get_urls()
-    urls = urls[:2]
-    articles = extraction_service.get_articles(urls)
-    summaries = summary_service.get_summaries(articles)
+    article_info = extraction_service.get_article_info()
+    article_info = article_info[90:91]
+
+    extraction_service.get_articles(article_info)
+    summaries = summary_service.get_summaries(article_info)
 
     return SummaryResponse(summaries=summaries)

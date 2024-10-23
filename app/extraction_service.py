@@ -1,64 +1,77 @@
-import logging
-import sys
 import xml.etree.ElementTree as ET
 
 import requests
-
-logger = logging.getLogger(__name__)
-
-logging.basicConfig(
-    format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
-    datefmt="%m/%d/%Y %H:%M:%S",
-    handlers=[logging.StreamHandler(sys.stdout)],
-)
-
 from bs4 import BeautifulSoup
+from loguru import logger
+
+from app.config import APP_TIMEOUT
 
 
 class ExtractionService:
     def __init__(self):
         self.RSS_URL = "https://www.nrk.no/toppsaker.rss"
 
-    def extract_article(self, url):
-        response = requests.get(url)
+    @staticmethod
+    def fetch_web_page(url):
+        response = requests.get(url, timeout=APP_TIMEOUT)
         if response.status_code == 200:
-            html_content = response.text
+            html = response.text
         else:
-            logger.error("Failed to retrieve webpage")
-            exit()
+            logger.error(f"Failed to retrieve webpage: {url}")
+            html = ""
 
-        soup = BeautifulSoup(html_content, "html.parser")
+        return html
+
+    def extract_article(self, html):
+        soup = BeautifulSoup(html, "html.parser")
+        # Parse standard news article
         article_title = soup.find_all("h1", class_="article-title")
-        article = soup.find_all("div", class_="article-body")
-        if len(article) >= 1 and len(article_title) >= 1:
-            article = article[0].text
-            article = article.replace("\n", " ")
+        article_text = soup.find_all("div", class_="article-body")
 
-            title = article_title[0].text
-            title = title.replace("\n", " ")
+        # Parse bulletin article
+        bulletin_article_title = soup.find_all("h2", class_="bulletin-title")
+        bulletin_article_text = soup.find_all("div", class_="bulletin-text-body")
+
+        if len(article_text) >= 1 and len(article_title) >= 1:
+            text = self.extract_string(article_text)
+            title = self.extract_string(article_title)
+
+        elif len(bulletin_article_title) >= 1 and len(bulletin_article_text) >= 1:
+            text = self.extract_string(bulletin_article_text)
+            title = self.extract_string(bulletin_article_title)
         else:
             logger.warning("Failed to extract article")
-            article, title = None, None
+            text, title = None, None
 
-        return article, title
+        return text, title
 
-    def extract_urls(self):
-        response = requests.get(self.RSS_URL)
+    def extract_article_info(self):
+        response = requests.get(self.RSS_URL, timeout=APP_TIMEOUT)
 
         root = ET.fromstring(response.content)
         items = root.findall(".//item")
-        urls = [item.iter("link").__next__().text for item in items]
 
-        return urls
+        article_info = [
+            {"url": item.find("link").text, "date": item.find("pubDate").text}
+            for item in items
+            if item.find("link") is not None and "/xl/" not in item.find("link").text
+        ]
 
-    def get_urls(self):
-        logger.info("Extracting urls")
-        urls = self.extract_urls()
+        return article_info
 
-        return urls
+    def get_article_info(self):
+        logger.info("Extracting article info")
+        article_info = self.extract_article_info()
 
-    def get_articles(self, urls):
+        return article_info
+
+    def get_articles(self, article_info):
         logger.info("Extracting articles")
-        articles = self.extract_article(urls)
+        for article in article_info:
+            html = self.fetch_web_page(article["url"])
+            article["text"], article["title"] = self.extract_article(html)
 
-        return articles
+    def extract_string(self, texts):
+        text = texts[0].text
+        text = text.replace("\n", " ")
+        return text

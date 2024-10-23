@@ -4,4 +4,4 @@ from pydantic import BaseModel
 
 
 class SummaryResponse(BaseModel):
-    summaries: List[str]
+    summaries: List[dict]
