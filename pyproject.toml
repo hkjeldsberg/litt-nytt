@@ -13,7 +13,8 @@ dependencies = [
     "fastapi==0.112.0",
     "uvicorn==0.30.6",
     "requests==2.32.3",
-    "loguru==0.7.2"
+    "loguru==0.7.2",
+    "beautifulsoup4==4.12.3"
 ]
 
 [project.optional-dependencies]
