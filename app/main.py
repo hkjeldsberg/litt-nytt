@@ -9,7 +9,7 @@ from app.config import APP_HOST, APP_NAME, APP_PORT, APP_VERSION
 
 
 def get_app() -> FastAPI:
-    logger.debug("Starting TinyNews app")
+    logger.debug("Starting LittNytt app")
     app = FastAPI(title=APP_NAME, version=APP_VERSION)
     app.include_router(router)
 
