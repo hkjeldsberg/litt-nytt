@@ -51,13 +51,19 @@ class ExtractionService:
         root = ET.fromstring(response.content)
         items = root.findall(".//item")
 
-        article_info = [
-            {"url": item.find("link").text, "date": item.find("pubDate").text}
-            for item in items
-            if item.find("link") is not None and "/xl/" not in item.find("link").text
-        ]
+        # Extract all unique articles
+        articles = {}
+        for item in items:
+            if item.find("link") is not None and "/xl/" not in item.find("link").text:
+                article_id = item.find("guid").text
+                if article_id not in articles:
+                    articles[article_id] = {
+                        "url": item.find("link").text,
+                        "date": item.find("pubDate").text,
+                        "id": article_id
+                    }
 
-        return article_info
+        return list(articles.values())
 
     def get_article_info(self):
         logger.info("Extracting article info")
@@ -71,7 +77,8 @@ class ExtractionService:
             html = self.fetch_web_page(article["url"])
             article["text"], article["title"] = self.extract_article(html)
 
-    def extract_string(self, texts):
+    @staticmethod
+    def extract_string(texts):
         text = texts[0].text
         text = text.replace("\n", " ")
         return text

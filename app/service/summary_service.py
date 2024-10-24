@@ -15,6 +15,7 @@ class SummaryService:
                 "summary": self.extract_summary(article["text"]),
                 "url": article["url"],
                 "date": article["date"],
+                "id": article['id']
             }
             for article in article_info
             if article["title"] is not None
