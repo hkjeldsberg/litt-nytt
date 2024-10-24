@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from app.models.summary_response import SummaryResponse
 from app.service.extraction_service import ExtractionService
-from app.service.summary_service import SummaryService
+from app.client.summary_client import SummaryService
 
 router = APIRouter()
 
@@ -13,7 +13,7 @@ summary_service = SummaryService()
 @router.get("", response_model=SummaryResponse, name="summarize")
 def summarize() -> SummaryResponse:
     article_info = extraction_service.get_article_info()
-    article_info = article_info[90:91]
+    article_info = article_info[1:2]
 
     extraction_service.get_articles(article_info)
     summaries = summary_service.get_summaries(article_info)
