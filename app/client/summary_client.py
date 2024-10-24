@@ -1,6 +1,8 @@
 import requests
 from loguru import logger
 
+from app.config import HF_TOKEN
+
 
 class SummaryService:
     def __init__(self):
@@ -32,7 +34,7 @@ class SummaryService:
                 "clean_up_tokenization_spaces": True
             }
         }
-        headers = {"Authorization": "Bearer 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"}
+        headers = {"Authorization": f"Bearer {HF_TOKEN}"}
 
         try:
             response = requests.post(self.API_URL, headers=headers, json=body)
