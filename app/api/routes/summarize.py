@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from app.service.extraction_service import ExtractionService
 from app.models.summary_response import SummaryResponse
+from app.service.extraction_service import ExtractionService
 from app.service.summary_service import SummaryService
 
 router = APIRouter()

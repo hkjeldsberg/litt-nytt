@@ -60,7 +60,7 @@ class ExtractionService:
                     articles[article_id] = {
                         "url": item.find("link").text,
                         "date": item.find("pubDate").text,
-                        "id": article_id
+                        "id": article_id,
                     }
 
         return list(articles.values())
