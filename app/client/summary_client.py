@@ -25,7 +25,6 @@ class SummaryService:
         return summaries
 
     def fetch_summary(self, article):
-        print(article)
         body = {
             "inputs": article,
             "parameters": {
@@ -34,7 +33,9 @@ class SummaryService:
                 "clean_up_tokenization_spaces": True
             }
         }
-        headers = {"Authorization": f"Bearer {HF_TOKEN}"}
+        headers = {
+            "Authorization": f"Bearer {HF_TOKEN}"
+        }
 
         try:
             response = requests.post(self.API_URL, headers=headers, json=body)
