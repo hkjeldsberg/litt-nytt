@@ -18,7 +18,7 @@ class SummaryService:
                 "summary": self.fetch_summary(article["text"])[0]["summary_text"],
                 "url": article["url"],
                 "date": self.convert_date_to_iso_format(article["date"]),
-                "article_id": article["id"],
+                "article_id": article["article_id"],
             }
             for article in article_info
             if article["title"] is not None
