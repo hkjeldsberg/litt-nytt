@@ -3,7 +3,7 @@ from datetime import datetime
 import requests
 from loguru import logger
 
-from app.config import HF_TOKEN
+from app.config import APP_TIMEOUT, HF_TOKEN
 
 
 class SummaryService:
@@ -34,7 +34,7 @@ class SummaryService:
         headers = {"Authorization": f"Bearer {HF_TOKEN}"}
 
         try:
-            response = requests.post(self.API_URL, headers=headers, json=body)
+            response = requests.post(self.API_URL, headers=headers, json=body, timeout=APP_TIMEOUT)
             response.raise_for_status()
             return response.json()
         except requests.exceptions.HTTPError as e:

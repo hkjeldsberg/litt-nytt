@@ -1,5 +1,4 @@
-import xml.etree.ElementTree as ET
-
+import defusedxml.ElementTree as ET
 import requests
 from bs4 import BeautifulSoup
 from loguru import logger
