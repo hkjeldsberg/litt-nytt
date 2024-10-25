@@ -1,11 +1,11 @@
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
 
 class SummaryModel(Base):
-    __tablename__ = 'summaries'
+    __tablename__ = "summaries"
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
     summary = Column(String, nullable=False)
