@@ -63,4 +63,4 @@ Endpoints will be accessible at: `http://localhost:8000/`
 - [ ] Add search for filtering articles
 - [ ] Display loading indicator while summarizing
 - [ ] Sort by date (ascending)
-
+- [ ] Deploy app
