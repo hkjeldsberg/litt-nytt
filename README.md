@@ -45,7 +45,7 @@ Endpoints will be accessible at: `http://localhost:8000/`
 
 ### Backend
 
-- [ ] Setup database (Heroku, MongoDB)
+- [X] Setup database (Heroku, MongoDB)
 - [X] Save article ID
 - [X] Remove duplicate articles
 - [ ] Store summarized articles, date, title, id, link to DB

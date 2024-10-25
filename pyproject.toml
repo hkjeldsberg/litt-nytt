@@ -15,6 +15,7 @@ dependencies = [
     "requests==2.32.3",
     "loguru==0.7.2",
     "beautifulsoup4==4.12.3",
+    "sqlalchemy==2.0.36"
 ]
 
 [project.optional-dependencies]
