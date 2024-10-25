@@ -1,5 +1,4 @@
-import xml.etree.ElementTree as ET
-
+import defusedxml.ElementTree as ET
 import requests
 from bs4 import BeautifulSoup
 from loguru import logger
@@ -60,7 +59,7 @@ class ExtractionService:
                     articles[article_id] = {
                         "url": item.find("link").text,
                         "date": item.find("pubDate").text,
-                        "id": article_id,
+                        "article_id": article_id,
                     }
 
         return list(articles.values())

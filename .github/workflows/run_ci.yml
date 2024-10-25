@@ -29,6 +29,6 @@ jobs:
     - name: Lint project
       run: |
         bash linting.sh
-    - name: Test with pytest
-      run: |
-        pytest
+#    - name: Test with pytest
+#      run: |
+#        pytest

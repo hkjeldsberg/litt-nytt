@@ -45,22 +45,22 @@ Endpoints will be accessible at: `http://localhost:8000/`
 
 ### Backend
 
-- [ ] Setup database (Heroku, MongoDB)
+- [X] Setup database (Heroku, MongoDB)
 - [X] Save article ID
 - [X] Remove duplicate articles
-- [ ] Store summarized articles, date, title, id, link to DB
-- [ ] Add endpoint for fetching new articles and store to DB
+- [X] Store summarized articles, date, title, id, link to DB
+- [X] Add endpoint for fetching new articles and store to DB
 - [ ] Add tests and CI automation (Github actions)
 - [ ] Setup CRON jobs for fetching articles, summarization and storing to DB
 - [ ] Cache summarized articles (Redis)
 
 ### Frontend
 
-- [ ] Add refresh button for fetching new articles
+- [X] Add refresh button for fetching new articles
 - [ ] Fix styling/aligning of header
 - [ ] Setup pagination and "Load more" feature with infinite scrolling
 - [ ] Add tests and CI automation (Github actions)
 - [ ] Add search for filtering articles
 - [ ] Display loading indicator while summarizing
 - [ ] Sort by date (ascending)
-
+- [ ] Deploy app
